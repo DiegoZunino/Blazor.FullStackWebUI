@@ -1,0 +1,10 @@
+.clock {
+    height: 550px;
+    width: 550px;
+    border-style: double;
+    border-width: 10px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 100px;
+    font-weight: bold;
+    color: white;
+}
