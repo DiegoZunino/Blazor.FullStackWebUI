@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.FullStackWebUI", "src\Blazor.FullStackWebUI\Blazor.FullStackWebUI.csproj", "{9F0162E8-32BB-4AB8-8718-A14D96E1605A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.FullStackWebUI.Client", "src\Blazor.FullStackWebUI.Client\Blazor.FullStackWebUI.Client.csproj", "{5109A98E-3453-4439-9033-C09E15CAF0C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.FullStackWebUI.Shared", "src\Blazor.FullStackWebUI.Shared\Blazor.FullStackWebUI.Shared.csproj", "{FBCC1887-107C-4229-9E05-902DE872A4AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{9F0162E8-32BB-4AB8-8718-A14D96E1605A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F0162E8-32BB-4AB8-8718-A14D96E1605A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F0162E8-32BB-4AB8-8718-A14D96E1605A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5109A98E-3453-4439-9033-C09E15CAF0C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5109A98E-3453-4439-9033-C09E15CAF0C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5109A98E-3453-4439-9033-C09E15CAF0C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5109A98E-3453-4439-9033-C09E15CAF0C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCC1887-107C-4229-9E05-902DE872A4AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCC1887-107C-4229-9E05-902DE872A4AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCC1887-107C-4229-9E05-902DE872A4AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCC1887-107C-4229-9E05-902DE872A4AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

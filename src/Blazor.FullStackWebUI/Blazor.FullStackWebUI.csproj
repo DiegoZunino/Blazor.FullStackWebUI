@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor.FullStackWebUI.Shared\Blazor.FullStackWebUI.Shared.csproj" />
+    <ProjectReference Include="..\Blazor.FullStackWebUI.Client\Blazor.FullStackWebUI.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
+  </ItemGroup>
+  
 </Project>

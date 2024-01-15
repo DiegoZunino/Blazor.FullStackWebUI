@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject IDummyJsonService<Post> PostService
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <PageTitle>Home</PageTitle>
 
@@ -8,19 +9,24 @@
 <div class="row row-cols-1 my-5">
     
     <EditForm FormName="search" 
-              Model="@Filters" 
+              Model="@_filters" 
               OnSubmit="@Search">
       <div class="form-row row row-cols-2 mb-3">
           <div class="col">
               <InputText class="form-control" 
                          id="search" 
                          placeholder="Search by post title or content"
-                         @bind-Value="Filters.Search"/>
+                         @bind-Value="_filters.Search"/>
           </div>
         <div class="col">
             <button class="btn btn-secondary"
                     type="submit">
                 Search
+            </button>
+            <button class="btn btn-secondary"
+                    type="button"
+                    @onclick="Reset">
+                Reset
             </button>
         </div>
       </div>
@@ -61,13 +67,16 @@
                 </div>
             }
         </div>
-        
-        <div class="row row-cols-1 my-5">
-            <a class="btn btn-secondary w-auto m-auto"
-               href="?limit=@(Limit + 1)">
-                More
-            </a>
-        </div>
+
+        if (!_searching)
+        {
+            <div class="row row-cols-1 my-5">
+                <a class="btn btn-secondary w-auto m-auto"
+                   @onclick="AddMore">
+                    More
+                </a>
+            </div>   
+        }
     }
 
 </div>
@@ -76,12 +85,9 @@
 {
     private IEnumerable<Post> _posts = [];
     private readonly Random _random = new();
-    
-    [SupplyParameterFromQuery] 
-    private int Limit { get; set; }
-    
-    [SupplyParameterFromForm] 
-    private FiltersModel Filters { get; set; } = new();
+    private int _limit;
+    private FiltersModel _filters = new();
+    private bool _searching;
     
     [CascadingParameter]
     private HttpContext HttpContext { get; set; }
@@ -89,15 +95,34 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (HttpMethods.IsGet(HttpContext.Request.Method))
-        {
-            _posts = await PostService.GetList((Limit * 20) + 20, 0, 1000);   
-        }
+        await Load();
+    }
+
+    private async Task Load()
+    {
+        _posts = [];
+        _posts = await PostService.GetList((_limit * 20) + 20, 0, 1000);   
     }
 
     private async Task Search()
     {
-        _posts = await PostService.Search(Filters.Search, Limit + 20, 0, 1000);
+        _posts = [];
+        _searching = true;
+        _posts = await PostService.Search(_filters.Search, 0, 0, 1000);
+    }
+    
+    private async Task Reset()
+    {
+        _limit = 0;
+        _filters.Search = null;
+        _searching = false;
+        await Load();
+    }
+
+    private async Task AddMore()
+    {
+        _limit++;
+        await Load();
     }
     
     public class FiltersModel
