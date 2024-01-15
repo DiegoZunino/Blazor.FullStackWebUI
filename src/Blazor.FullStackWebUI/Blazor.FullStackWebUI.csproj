@@ -6,4 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Clock.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Counter.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Error.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Home.razor" />
+    <_ContentIncludedByDefault Remove="Pages\PostRoulette.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Components\Pages\Clock.razor" />
+    <AdditionalFiles Include="Components\Pages\Counter.razor" />
+    <AdditionalFiles Include="Components\Pages\Error.razor" />
+    <AdditionalFiles Include="Components\Pages\Home.razor" />
+    <AdditionalFiles Include="Components\Pages\PostRoulette.razor" />
+  </ItemGroup>
+
 </Project>

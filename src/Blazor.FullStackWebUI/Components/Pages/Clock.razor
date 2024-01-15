@@ -1,5 +1,5 @@
 @page "/clock"
-@* @attribute [StreamRendering] *@
+@rendermode @(new InteractiveServerRenderMode(prerender:false))
 
 <h1>Clock</h1>
 <span class="clock bg-black m-auto rounded-circle d-flex justify-content-center align-items-center font-weight-bold">
@@ -16,6 +16,7 @@
         {
             await Task.Delay(1000);
             _clock = DateTime.Now.ToString(@"HH\:mm\:ss");
+            Console.WriteLine(_clock);
             StateHasChanged();
         }
     }
