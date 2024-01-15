@@ -1,0 +1,78 @@
+﻿@page "/post-roulette"
+@inject IDummyJsonService<Post> PostService
+@* @attribute [StreamRendering] *@
+
+<PageTitle>Post Roulette</PageTitle>
+
+<h1>Post Roulette</h1>
+
+<div class="row row-cols-1 my-5">
+    
+    <div class="row row-cols-1 mb-3">
+        <a class="btn btn-secondary w-auto m-auto"
+           href="post-roulette">
+            Reload
+        </a>
+    </div>
+    
+    @if (!_posts.Any())
+    {
+
+        <img class="roulette m-auto w-auto loader"
+             src="images/roulette.gif"
+             alt="loader"/>
+    }
+    else
+    {
+        <div class="row row-cols-3 g-3 m-auto">
+            @foreach (var post in _posts)
+            {
+                <div class="col">
+                    <div class="card">
+                        <img class="card-img-top"
+                             src="https://picsum.photos/id/@_random.Next(1, 1084)/600/400"
+                             onerror="this.src='https://picsum.photos/600/400';"
+                             alt="@post.Title"/>
+                        <div class="card-body">
+                            <h4 class="card-title">@post.Title</h4>
+                            <p class="card-text">
+                                @post.Body
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            @foreach (var tag in @post.Tags)
+                            {
+                                <span class="badge bg-secondary bg-opacity-50 m-1">
+                                    #@tag
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private readonly List<Post> _posts = [];
+    private readonly Random _random = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(2000);
+        await foreach (var post in GetRandomPosts())
+        {
+            _posts.Add(post);
+            StateHasChanged();
+        }
+    }
+    
+    private async IAsyncEnumerable<Post> GetRandomPosts()
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            yield return await PostService.Get(_random.Next(1, 150), 1000);
+        }
+    }
+}

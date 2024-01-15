@@ -1,0 +1,4 @@
+.roulette {
+    transform-origin: center; 
+    animation: spin 2s linear infinite;
+}

@@ -1,0 +1,22 @@
+@page "/clock"
+@* @attribute [StreamRendering] *@
+
+<h1>Clock</h1>
+<span class="clock bg-black m-auto rounded-circle d-flex justify-content-center align-items-center font-weight-bold">
+    @_clock
+</span>
+
+
+@code {
+    private string _clock = DateTime.Now.ToString(@"HH\:mm\:ss");
+    
+    protected override async Task OnInitializedAsync()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            await Task.Delay(1000);
+            _clock = DateTime.Now.ToString(@"HH\:mm\:ss");
+            StateHasChanged();
+        }
+    }
+}

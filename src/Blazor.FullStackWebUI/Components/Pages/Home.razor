@@ -1,7 +1,118 @@
 ﻿@page "/"
+@inject IDummyJsonService<Post> PostService
+@attribute [StreamRendering]
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Home</h1>
 
-Welcome to your new app.
+<div class="row row-cols-1 my-5">
+    
+    <EditForm FormName="search" 
+              Model="@Filters" 
+              OnSubmit="@Search">
+      <div class="form-row row row-cols-2 mb-3">
+          <div class="col">
+              <InputText class="form-control" 
+                         id="search" 
+                         placeholder="Search by post title or content"
+                         @bind-Value="Filters.Search"/>
+          </div>
+        <div class="col">
+            <button class="btn btn-secondary"
+                    type="submit">
+                Search
+            </button>
+            <a class="btn btn-secondary"
+               href="">
+                Reset
+            </a>
+        </div>
+      </div>
+    </EditForm>
+    
+    @if (!_posts.Any())
+    {
+        <img class="roulette m-auto w-auto loader"
+             src="images/progress.gif"
+             alt="loader"/>
+    }
+    else
+    {
+        <div class="row row-cols-4 g-3 m-auto">
+            @foreach (var post in _posts)
+            {
+                <div class="col">
+                    <div class="card">
+                        <img class="card-img-top"
+                             src="https://picsum.photos/id/@_random.Next(1, 1084)/600/400"
+                             onerror="this.src='https://picsum.photos/600/400';"
+                             alt="@post.Title"/>
+                        <div class="card-body">
+                            <h4 class="card-title">@post.Title</h4>
+                            <p class="card-text">
+                                @post.Body
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            @foreach (var tag in @post.Tags)
+                            {
+                                <span class="badge bg-secondary bg-opacity-50 m-1">
+                                    #@tag
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        if (!_searching)
+        {
+            <div class="row row-cols-1 my-5">
+                <a class="btn btn-secondary w-auto m-auto"
+                   href="?limit=@(Limit + 1)">
+                    More
+                </a>
+            </div>   
+        }
+    }
+
+</div>
+
+@code
+{
+    private IEnumerable<Post> _posts = [];
+    private readonly Random _random = new();
+    private bool _searching;
+    
+    [SupplyParameterFromQuery] 
+    private int Limit { get; set; }
+    
+    [SupplyParameterFromForm] 
+    private FiltersModel Filters { get; set; } = new();
+    
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; }
+   
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            _posts = await PostService.GetList((Limit * 20) + 20, 0, 1000);   
+        }
+    }
+
+    private async Task Search()
+    {
+        _posts = [];
+        _searching = true;
+        _posts = await PostService.Search(Filters.Search, Limit + 20, 0, 1000);
+    }
+    
+    public class FiltersModel
+    {
+        public string Search { get; set; }
+    }
+}
