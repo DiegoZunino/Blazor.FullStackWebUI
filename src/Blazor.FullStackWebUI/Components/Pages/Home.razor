@@ -1,6 +1,6 @@
 ﻿@page "/"
 @inject IDummyJsonService<Post> PostService
-@attribute [StreamRendering]
+@* @attribute [StreamRendering] *@
 
 <PageTitle>Home</PageTitle>
 
@@ -8,8 +8,9 @@
 
 <div class="row row-cols-1 my-5">
     
-    <EditForm FormName="search" 
-              Model="@Filters" 
+    <EditForm FormName="search"
+              @* Enhance *@
+              Model="@Filters"
               OnSubmit="@Search">
       <div class="form-row row row-cols-2 mb-3">
           <div class="col">
