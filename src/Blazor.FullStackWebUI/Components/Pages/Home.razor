@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject IDummyJsonService<Post> PostService
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@* @rendermode InteractiveServer *@
+@* @rendermode @(new InteractiveServerRenderMode(prerender: false)) *@
 
 <PageTitle>Home</PageTitle>
 
