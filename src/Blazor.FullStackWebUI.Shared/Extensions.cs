@@ -6,7 +6,6 @@ public static class Extensions
     {
         services.AddHttpClient(DummyJsonService.ClientName,
             client => client.BaseAddress = new Uri(DummyJsonService.BaseAddress));
-
         services.AddSingleton<IDummyJsonService<Post>, PostService>();
 
     }
