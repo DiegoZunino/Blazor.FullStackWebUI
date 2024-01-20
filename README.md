@@ -7,5 +7,5 @@ Durante la sessione, esamineremo e valuteremo il loro impatto sul framework e su
 
 ## Branches
 - ssr: Static server-side rendering demo
-- rm-server: Interactive modes demo (server)
-- rm-wasm: Interactive modes demo (wasm + auto)
+- rm-server: Interactive render modes demo 1/2 (server)
+- rm-wasm: Interactive render modes demo 2/2 (wasm + auto)
