@@ -1,7 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents()
+    // Adds services to support rendering interactive server components in a razor components application.
     //.AddInteractiveServerComponents()
+    // Adds services to support rendering interactive WebAssembly components.
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddFullStackWebUIServices();
@@ -20,7 +22,9 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
+    // Configures the application to support the InteractiveServer render mode.
     //.AddInteractiveServerRenderMode()
+    // Configures the application to support the InteractiveWebAssembly render mode
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
